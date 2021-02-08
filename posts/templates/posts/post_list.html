@@ -1,0 +1,12 @@
+{% extends 'posts/post_base.html' %}
+
+{% block post_content %}
+<div class="col-md-8">
+  {% for post in post_list %}
+    {% include "posts/_post.html" with indicate_group=True %}
+  {% endfor %}
+</div>
+{% endblock %}
+
+
+<!-- Couldn't we just say if user.is_authenticated? -->

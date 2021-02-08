@@ -1,0 +1,38 @@
+<div class="post media">
+  <!-- <a href="{% url 'posts:single' username=post.user.username pk=post.pk%}"><p>{{post.message_html|safe}}</p></a> -->
+  <!-- <p>{{post.message_html|safe}}</p> -->
+  <a style="margin:10px 0 10px 0; color: black; font-family: 'Montserrat', sans-serif;" class='list-group-item' href="{% url 'posts:single' username=post.user.username pk=post.pk%}">
+    <div class="list-group-item-text container-fluid">
+      {{post.message_html|safe}}
+    </div>
+  </a>
+  <div style="margin-top: 15px;" class="media-body">
+    <h5 class='media-heading'>
+    <span class='username'>
+      <a style="color: #ced1ed;" href="{% url 'posts:for_user' username=post.user.username %}">@{{post.user.username}}</a>
+    </span>
+    <small style="font-family: 'Montserrat', sans-serif; font-size: 14px; margin-left: 3px; color:#adadad">{{post.created_at}}</small>
+    <!-- <time class='time'>
+      <a href="{% url 'posts:single' username=post.user.username pk=post.pk%}">@{{post.created_at}}</a>
+    </time> -->
+    </h5>
+
+    <div class="media-footer">
+      <div style="transform: translate(15px);" class="row">
+        {% if indicate_group %}
+        <a href="{% url 'groups:single' slug=post.group.slug %}">
+          <p class="btn btn-outline-secondary" style="font-family: 'Montserrat', sans-serif; transform: translate(3px, -5px);">
+            <span class="fas fa-users"></span> {{ post.group.name }}
+          </p>
+        </a>
+        {% endif %}
+      </div>
+      {% if user.is_authenticated and post.user == user and not hide_delete %}
+        <a style="transform: translate(3px, -5px);" class="btn btn-outline-danger" href="{% url 'posts:delete' pk=post.pk %}" title="delete" class='btn btn-simple'>
+          <span class='fas fa-trash' aria-hidden='true'></span>
+          <span class='icon-label'>Delete</span>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
